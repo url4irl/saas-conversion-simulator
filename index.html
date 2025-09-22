@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SaaS Conversion Simulations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://umami.url4irl.com/script.js"
+      data-website-id="e4d3a29b-98e3-4fc3-83b1-9bcfb230b3cc"
+    ></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "var(--background)",
+              foreground: "var(--foreground)",
+              primary: {
+                DEFAULT: "var(--primary)",
+                foreground: "var(--primary-foreground)",
+              },
+              secondary: {
+                DEFAULT: "var(--secondary)",
+                foreground: "var(--secondary-foreground)",
+              },
+              card: {
+                DEFAULT: "var(--card)",
+                foreground: "var(--card-foreground)",
+              },
+              popover: {
+                DEFAULT: "var(--popover)",
+                foreground: "var(--popover-foreground)",
+              },
+              muted: {
+                DEFAULT: "var(--muted)",
+                foreground: "var(--muted-foreground)",
+              },
+              accent: {
+                DEFAULT: "var(--accent)",
+                foreground: "var(--accent-foreground)",
+              },
+              destructive: {
+                DEFAULT: "var(--destructive)",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              border: "var(--border)",
+              input: "var(--input)",
+              ring: "var(--ring)",
+              chart: {
+                1: "var(--chart-1)",
+                2: "var(--chart-2)",
+                3: "var(--chart-3)",
+                4: "var(--chart-4)",
+                5: "var(--chart-5)",
+              },
+              sidebar: {
+                DEFAULT: "var(--sidebar)",
+                foreground: "var(--sidebar-foreground)",
+                primary: {
+                  DEFAULT: "var(--sidebar-primary)",
+                  foreground: "var(--sidebar-primary-foreground)",
+                },
+                accent: {
+                  DEFAULT: "var(--sidebar-accent)",
+                  foreground: "var(--sidebar-accent-foreground)",
+                },
+                border: "var(--sidebar-border)",
+                ring: "var(--sidebar-ring)",
+              },
+              pup: {
+                pink: {
+                  50: "var(--color-pup-pink-50)",
+                  100: "var(--color-pup-pink-100)",
+                  200: "var(--color-pup-pink-200)",
+                  300: "var(--color-pup-pink-300)",
+                  400: "var(--color-pup-pink-400)",
+                  500: "var(--color-pup-pink-500)",
+                  600: "var(--color-pup-pink-600)",
+                  700: "var(--color-pup-pink-700)",
+                  800: "var(--color-pup-pink-800)",
+                  900: "var(--color-pup-pink-900)",
+                  950: "var(--color-pup-pink-950)",
+                },
+                mint: {
+                  500: "var(--color-pup-mint-500)",
+                },
+                magenta: {
+                  500: "var(--color-pup-magenta-500)",
+                },
+              },
+            },
+            borderRadius: {
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+            keyframes: {
+              "pup-wiggle": {
+                "0%, 100%": { transform: "rotate(-3deg)" },
+                "50%": { transform: "rotate(3deg)" },
+              },
+              "pup-float": {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+              "pup-bounce": {
+                "0%, 20%, 53%, 80%, 100%": { transform: "translateY(0)" },
+                "40%, 43%": { transform: "translateY(-15px)" },
+                "70%": { transform: "translateY(-8px)" },
+                "90%": { transform: "translateY(-3px)" },
+              },
+            },
+
+            boxShadow: {
+              "2xs": "var(--shadow-2xs)",
+              xs: "var(--shadow-xs)",
+              sm: "var(--shadow-sm)",
+              DEFAULT: "var(--shadow)",
+              md: "var(--shadow-md)",
+              lg: "var(--shadow-lg)",
+              xl: "var(--shadow-xl)",
+              "2xl": "var(--shadow-2xl)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --radius: 1.5rem;
+
+        /* Pink Pup Theme - Light Mode */
+        --background: oklch(0.99 0.01 330.2); /* Very light pink background */
+        --foreground: oklch(0.15 0.03 330.2); /* Dark pink-gray text */
+
+        --card: oklch(1 0 0); /* Pure white cards */
+        --card-foreground: oklch(0.2 0.03 330.2); /* Dark pink-gray card text */
+
+        --popover: oklch(1 0 0); /* White popover */
+        --popover-foreground: oklch(
+          0.2 0.03 330.2
+        ); /* Dark pink-gray popover text */
+
+        --primary: oklch(0.6 0.15 330.2); /* Main pink (pup-pink-500) */
+        --primary-foreground: oklch(1 0 0); /* White text on pink */
+
+        --secondary: oklch(0.96 0.02 330.2); /* Light pink secondary */
+        --secondary-foreground: oklch(
+          0.3 0.03 330.2
+        ); /* Dark pink secondary text */
+
+        --muted: oklch(0.94 0.015 330.2); /* Muted pink background */
+        --muted-foreground: oklch(0.45 0.02 330.2); /* Muted pink text */
+
+        --accent: oklch(0.92 0.02 330.2); /* Light pink accent */
+        --accent-foreground: oklch(0.25 0.03 330.2); /* Dark pink accent text */
+
+        --destructive: oklch(0.55 0.2 25); /* Red destructive */
+
+        --border: oklch(0.85 0.015 330.2); /* Light pink border */
+        --input: oklch(0.92 0.015 330.2); /* Light pink input background */
+        --ring: oklch(0.6 0.15 330.2); /* Pink focus ring */
+
+        /* Chart colors with pup theme */
+        --chart-1: oklch(0.6 0.15 330.2); /* Main pink */
+        --chart-2: oklch(0.55 0.12 175); /* Mint green */
+        --chart-3: oklch(0.5 0.18 310); /* Magenta */
+        --chart-4: oklch(0.45 0.1 330.2); /* Dark pink */
+        --chart-5: oklch(0.7 0.08 330.2); /* Light pink */
+
+        /* Sidebar colors */
+        --sidebar: oklch(0.98 0.01 330.2); /* Very light pink sidebar */
+        --sidebar-foreground: oklch(
+          0.25 0.03 330.2
+        ); /* Dark pink sidebar text */
+        --sidebar-primary: oklch(0.6 0.15 330.2); /* Pink sidebar primary */
+        --sidebar-primary-foreground: oklch(
+          1 0 0
+        ); /* White sidebar primary text */
+        --sidebar-accent: oklch(
+          0.94 0.015 330.2
+        ); /* Light pink sidebar accent */
+        --sidebar-accent-foreground: oklch(
+          0.3 0.03 330.2
+        ); /* Dark pink sidebar accent text */
+        --sidebar-border: oklch(0.9 0.01 330.2); /* Pink sidebar border */
+        --sidebar-ring: oklch(0.6 0.15 330.2); /* Pink sidebar ring */
+
+        /* Pink-tinted shadows */
+        --shadow-color: oklch(0.6 0.15 330.2);
+        --shadow-2xs: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.05);
+        --shadow-xs: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.05);
+        --shadow-sm: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1),
+          0 1px 2px -1px rgb(from var(--shadow-color) r g b / 0.1);
+        --shadow: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1),
+          0 1px 2px -1px rgb(from var(--shadow-color) r g b / 0.1);
+        --shadow-md: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1),
+          0 2px 4px -1px rgb(from var(--shadow-color) r g b / 0.1);
+        --shadow-lg: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1),
+          0 4px 6px -1px rgb(from var(--shadow-color) r g b / 0.1);
+        --shadow-xl: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1),
+          0 8px 10px -1px rgb(from var(--shadow-color) r g b / 0.1);
+        --shadow-2xl: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1);
+      }
+
+      .dark {
+        /* Pink Pup Theme - Dark Mode */
+        --background: oklch(0.12 0.02 330.2); /* Dark pink background */
+        --foreground: oklch(0.9 0.01 330.2); /* Light pink text */
+
+        --card: oklch(0.15 0.02 330.2); /* Dark pink cards */
+        --card-foreground: oklch(0.95 0.01 330.2); /* Light pink card text */
+
+        --popover: oklch(0.18 0.02 330.2); /* Dark pink popover */
+        --popover-foreground: oklch(
+          0.92 0.01 330.2
+        ); /* Light pink popover text */
+
+        --primary: oklch(0.65 0.15 330.2); /* Bright pink primary */
+        --primary-foreground: oklch(1 0 0); /* White text on pink */
+
+        --secondary: oklch(0.2 0.02 330.2); /* Dark pink secondary */
+        --secondary-foreground: oklch(
+          0.85 0.01 330.2
+        ); /* Light pink secondary text */
+
+        --muted: oklch(0.18 0.02 330.2); /* Dark muted pink */
+        --muted-foreground: oklch(0.7 0.01 330.2); /* Medium pink muted text */
+
+        --accent: oklch(0.22 0.02 330.2); /* Dark pink accent */
+        --accent-foreground: oklch(0.9 0.01 330.2); /* Light pink accent text */
+
+        --destructive: oklch(0.6 0.2 25); /* Bright red destructive */
+
+        --border: oklch(0.25 0.02 330.2); /* Dark pink border */
+        --input: oklch(0.22 0.02 330.2); /* Dark pink input */
+        --ring: oklch(0.65 0.15 330.2); /* Bright pink focus ring */
+
+        /* Dark mode chart colors */
+        --chart-1: oklch(0.65 0.15 330.2); /* Bright pink */
+        --chart-2: oklch(0.6 0.12 175); /* Bright mint */
+        --chart-3: oklch(0.55 0.18 310); /* Bright magenta */
+        --chart-4: oklch(0.5 0.12 330.2); /* Medium pink */
+        --chart-5: oklch(0.75 0.1 330.2); /* Light pink */
+
+        /* Dark mode sidebar */
+        --sidebar: oklch(0.1 0.015 330.2); /* Very dark pink sidebar */
+        --sidebar-foreground: oklch(
+          0.9 0.01 330.2
+        ); /* Light pink sidebar text */
+        --sidebar-primary: oklch(
+          0.65 0.15 330.2
+        ); /* Bright pink sidebar primary */
+        --sidebar-primary-foreground: oklch(
+          1 0 0
+        ); /* White sidebar primary text */
+        --sidebar-accent: oklch(0.16 0.02 330.2); /* Dark pink sidebar accent */
+        --sidebar-accent-foreground: oklch(
+          0.9 0.01 330.2
+        ); /* Light pink sidebar accent text */
+        --sidebar-border: oklch(0.2 0.015 330.2); /* Dark pink sidebar border */
+        --sidebar-ring: oklch(0.65 0.15 330.2); /* Bright pink sidebar ring */
+
+        /* Dark mode shadows */
+        --shadow-color: oklch(0 0 0);
+      }
+
+      @layer base {
+        * {
+          @apply border-border outline-ring/50;
+        }
+        body {
+          @apply bg-background text-foreground;
+        }
+      }
+
+      /* Playful animations for the pup theme */
+      @layer utilities {
+        .pup-gradient {
+          background: linear-gradient(
+            135deg,
+            var(--primary) 0%,
+            hsl(from var(--primary) / 0.8) 100%
+          );
+        }
+
+        .pup-shine {
+          background: linear-gradient(
+            135deg,
+            hsl(from var(--primary) / 0.1) 0%,
+            var(--primary) 50%,
+            hsl(from var(--primary) / 0.8) 100%
+          );
+        }
+
+        .positive {
+          color: hsl(var(--chart-2));
+        }
+        .negative {
+          color: hsl(var(--destructive));
+        }
+        .neutral {
+          color: hsl(var(--chart-3));
+        }
+        .break-even {
+          color: hsl(from var(--chart-4) / 0.8);
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen p-5">
+    <div
+      class="container max-w-6xl mx-auto bg-card/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl"
+    >
+      <h1
+        class="text-center text-4xl font-black mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+      >
+        🚀 SaaS Conversion Simulator
+      </h1>
+
+      <div
+        class="controls bg-secondary p-6 rounded-2xl mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+      >
+        <div class="input-group space-y-2">
+          <label
+            for="marketSize"
+            class="font-semibold text-card-foreground text-sm block"
+            >Target Market</label
+          >
+          <select
+            id="marketSize"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+          >
+            <option value="custom">Custom Users</option>
+            <option value="eu">Europe</option>
+            <option value="na">North America</option>
+            <option value="latam">Latin America</option>
+            <option value="asia">Asia</option>
+            <option value="global">Global Market</option>
+          </select>
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="demographic"
+            class="font-semibold text-card-foreground text-sm block"
+            >Demographic Segment</label
+          >
+          <select
+            id="demographic"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+          >
+            <option value="tech_young">Tech Savvy Young Adults (20-35)</option>
+            <option value="genz">Gen Z (13-24)</option>
+            <option value="professionals">
+              Business Professionals (25-45)
+            </option>
+            <option value="general">General Adults (25-55)</option>
+            <option value="seniors">Seniors (55+)</option>
+          </select>
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="totalUsers"
+            class="font-semibold text-card-foreground text-sm block"
+            >Monthly Active Users</label
+          >
+          <input
+            type="number"
+            id="totalUsers"
+            value="1000"
+            min="100"
+            max="1000000"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="totalUsers"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="marketPenetration"
+            class="font-semibold text-card-foreground text-sm block"
+            >Market Penetration (%)</label
+          >
+          <input
+            type="number"
+            id="marketPenetration"
+            value="0.1"
+            min="0.001"
+            max="10"
+            step="0.001"
+            disabled
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground opacity-50"
+            data-umami-event="marketPenetration"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="conversionRate"
+            class="font-semibold text-card-foreground text-sm block"
+            >Conversion Rate (%)</label
+          >
+          <input
+            type="number"
+            id="conversionRate"
+            value="8"
+            min="1"
+            max="50"
+            step="0.1"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="conversionRate"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="costPerUser"
+            class="font-semibold text-card-foreground text-sm block"
+            >Cost per User ($)</label
+          >
+          <input
+            type="number"
+            id="costPerUser"
+            value="0.50"
+            min="0.10"
+            max="5"
+            step="0.05"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="costPerUser"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="basicTier"
+            class="font-semibold text-card-foreground text-sm block"
+            >Basic Tier Price ($)</label
+          >
+          <input
+            type="number"
+            id="basicTier"
+            value="3"
+            min="1"
+            max="50"
+            step="0.5"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="basicTier"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="premiumTier"
+            class="font-semibold text-card-foreground text-sm block"
+            >Premium Tier Price ($)</label
+          >
+          <input
+            type="number"
+            id="premiumTier"
+            value="5"
+            min="2"
+            max="100"
+            step="0.5"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="premiumTier"
+          />
+        </div>
+        <div class="input-group space-y-2">
+          <label
+            for="tierSplit"
+            class="font-semibold text-card-foreground text-sm block"
+            >Premium Tier % (rest goes to Basic)</label
+          >
+          <input
+            type="number"
+            id="tierSplit"
+            value="40"
+            min="0"
+            max="100"
+            class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
+            data-umami-event="tierSplit"
+          />
+        </div>
+      </div>
+
+      <div
+        class="results grid grid-cols-1 md:grid-cols-2 gap-6"
+        id="results"
+      ></div>
+
+      <div class="scenarios mt-8 bg-muted p-6 rounded-2xl">
+        <h2 class="text-2xl font-bold text-card-foreground mb-4">
+          🎯 Strategic Scenarios
+        </h2>
+        <div id="scenarios"></div>
+      </div>
+    </div>
+
+    <script>
+      const markets = {
+        eu: { min: 920000, max: 2300000 },
+        na: { min: 720000, max: 1800000 },
+        latam: { min: 960000, max: 2400000 },
+        asia: { min: 5200000, max: 13000000 },
+        global: { min: 8000000, max: 20000000 },
+      };
+
+      const demographicMultipliers = {
+        tech_young: 1,
+        genz: 0.8,
+        professionals: 1.2,
+        general: 1.5,
+        seniors: 0.5,
+      };
+
+      const marketSizeSelect = document.getElementById("marketSize");
+      const demographicSelect = document.getElementById("demographic");
+      const totalUsersInput = document.getElementById("totalUsers");
+      const penetrationInput = document.getElementById("marketPenetration");
+
+      function updateInputs() {
+        const isCustom = marketSizeSelect.value === "custom";
+        totalUsersInput.disabled = !isCustom;
+        penetrationInput.disabled = isCustom;
+        demographicSelect.disabled = isCustom;
+        if (!isCustom) {
+          penetrationInput.classList.add("opacity-50");
+          totalUsersInput.classList.add("opacity-50");
+          demographicSelect.classList.remove("opacity-50");
+        } else {
+          penetrationInput.classList.remove("opacity-50");
+          totalUsersInput.classList.remove("opacity-50");
+          demographicSelect.classList.add("opacity-50");
+        }
+        updateResults();
+      }
+
+      function updateResults() {
+        const selectedMarket = marketSizeSelect.value;
+        const selectedDemographic = demographicSelect.value;
+        let totalUsers = parseInt(totalUsersInput.value);
+        const marketPenetration = parseFloat(penetrationInput.value) / 100;
+        const conversionRate =
+          parseFloat(document.getElementById("conversionRate").value) / 100;
+        const costPerUser = parseFloat(
+          document.getElementById("costPerUser").value
+        );
+        const basicTierPrice = parseFloat(
+          document.getElementById("basicTier").value
+        );
+        const premiumTierPrice = parseFloat(
+          document.getElementById("premiumTier").value
+        );
+        const tierSplit =
+          parseFloat(document.getElementById("tierSplit").value) / 100;
+
+        let marketSizeDisplay = "Custom";
+        let penetrationDisplay = "-";
+        let growthPotential = "-";
+        let marketCap = "-";
+
+        let tamMin = 0;
+        let tamMax = 0;
+        let avgTam = 0;
+
+        if (selectedMarket !== "custom") {
+          const baseMarket = markets[selectedMarket];
+          const multiplier = demographicMultipliers[selectedDemographic];
+          tamMin = baseMarket.min * multiplier;
+          tamMax = baseMarket.max * multiplier;
+          avgTam = (tamMin + tamMax) / 2;
+          totalUsers = Math.round(avgTam * marketPenetration);
+          totalUsersInput.value = totalUsers;
+          marketSizeDisplay = `${Math.round(
+            tamMin
+          ).toLocaleString()}-${Math.round(tamMax).toLocaleString()}`;
+          penetrationDisplay = `${(marketPenetration * 100).toFixed(3)}%`;
+          const potentialGrowth = ((tamMax - totalUsers) / totalUsers) * 100;
+          growthPotential =
+            isFinite(potentialGrowth) && potentialGrowth > 0
+              ? `${potentialGrowth.toFixed(1)}%`
+              : "Saturated";
+          const avgPrice =
+            (1 - tierSplit) * basicTierPrice + tierSplit * premiumTierPrice;
+          marketCap = `$${Math.round(
+            tamMax * conversionRate * avgPrice
+          ).toLocaleString()}`;
+        } else {
+          marketSizeDisplay = `Custom (${totalUsers.toLocaleString()})`;
+          growthPotential = "Unlimited";
+          marketCap = "Custom Calculation Required";
+        }
+
+        const payingUsers = Math.round(totalUsers * conversionRate);
+        const freeUsers = totalUsers - payingUsers;
+
+        const premiumUsers = Math.round(payingUsers * tierSplit);
+        const basicUsers = payingUsers - premiumUsers;
+
+        const revenue =
+          basicUsers * basicTierPrice + premiumUsers * premiumTierPrice;
+        const totalCosts = totalUsers * costPerUser;
+        const profit = revenue - totalCosts;
+
+        let profitClass =
+          profit > 0 ? "positive" : profit < 0 ? "negative" : "break-even";
+
+        const resultsHtml = `
+                <div class="result-card bg-card p-6 rounded-2xl shadow-md border-l-4 border-primary hover:-translate-y-1 transition-transform">
+                    <div class="result-title text-lg font-bold text-card-foreground mb-4 flex items-center">📊 User Breakdown</div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Total Users:</span><span>${totalUsers.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Free Users:</span><span>${freeUsers.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Paying Users:</span><span>${payingUsers.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Basic Tier ($${basicTierPrice}):</span><span>${basicUsers.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Premium Tier ($${premiumTierPrice}):</span><span>${premiumUsers.toLocaleString()}</span></div>
+                </div>
+
+                <div class="result-card bg-card p-6 rounded-2xl shadow-md border-l-4 border-primary hover:-translate-y-1 transition-transform">
+                    <div class="result-title text-lg font-bold text-card-foreground mb-4 flex items-center">💰 Financial Performance</div>
+                    <div class="result-value text-3xl font-extrabold mb-4 ${profitClass}">$${profit.toLocaleString()}</div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Revenue:</span><span>$${revenue.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Costs:</span><span>$${totalCosts.toLocaleString()}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Profit Margin:</span><span>${
+                      revenue > 0 ? ((profit / revenue) * 100).toFixed(1) : 0
+                    }%</span></div>
+                </div>
+
+                <div class="result-card bg-card p-6 rounded-2xl shadow-md border-l-4 border-primary hover:-translate-y-1 transition-transform">
+                    <div class="result-title text-lg font-bold text-card-foreground mb-4 flex items-center">📈 Unit Economics</div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Revenue per User:</span><span>$${(
+                      revenue / totalUsers
+                    ).toFixed(2)}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Cost per User:</span><span>$${costPerUser.toFixed(
+                      2
+                    )}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Net per User:</span><span class="${
+                      profit / totalUsers > 0 ? "positive" : "negative"
+                    }">$${(profit / totalUsers).toFixed(2)}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Payback Ratio:</span><span>${
+                      freeUsers > 0
+                        ? ((payingUsers / freeUsers) * 100).toFixed(1)
+                        : "∞"
+                    }%</span></div>
+                </div>
+
+                <div class="result-card bg-card p-6 rounded-2xl shadow-md border-l-4 border-primary hover:-translate-y-1 transition-transform">
+                    <div class="result-title text-lg font-bold text-card-foreground mb-4 flex items-center">🌍 Market Analysis</div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Market Size:</span><span>${marketSizeDisplay}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Penetration:</span><span>${penetrationDisplay}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Growth Potential:</span><span>${growthPotential}</span></div>
+                    <div class="metric flex justify-between mb-2 pb-2 border-b border-border"><span>Est. Market Cap:</span><span>${marketCap}</span></div>
+                </div>
+            `;
+
+        document.getElementById("results").innerHTML = resultsHtml;
+
+        // Generate scenarios
+        const scenarios = [
+          { rate: 5, users: 500, split: 30, name: "Conservative Start" },
+          { rate: 12, users: 2000, split: 50, name: "Viral Growth" },
+          { rate: 15, users: 5000, split: 60, name: "Market Leader" },
+        ];
+
+        let scenariosHtml = "";
+        scenarios.forEach((scenario) => {
+          const sPaying = Math.round(scenario.users * (scenario.rate / 100));
+          const sPremium = Math.round(sPaying * (scenario.split / 100));
+          const sBasic = sPaying - sPremium;
+          const sRevenue =
+            sBasic * basicTierPrice + sPremium * premiumTierPrice;
+          const sCosts = scenario.users * costPerUser;
+          const sProfit = sRevenue - sCosts;
+
+          scenariosHtml += `
+                    <div class="scenario bg-card mb-5 p-5 rounded-xl border-l-4 border-chart-2">
+                        <h4 class="text-xl font-bold text-card-foreground mb-2">${
+                          scenario.name
+                        }</h4>
+                        <p class="text-card-foreground"><strong>${scenario.users.toLocaleString()} users</strong> at <strong>${
+            scenario.rate
+          }% conversion</strong> → 
+                        <span class="${
+                          sProfit > 0 ? "positive" : "negative"
+                        }"><strong>$${sProfit.toLocaleString()} monthly profit</strong></span></p>
+                        <div class="strategy-tip bg-accent/20 border-2 border-accent p-4 rounded-lg mt-4">
+                            💡 Strategy: ${
+                              sProfit > 0
+                                ? "Profitable! Focus on scaling user acquisition."
+                                : "Need higher conversion or pricing adjustments."
+                            }
+                        </div>
+                    </div>
+                `;
+        });
+
+        document.getElementById("scenarios").innerHTML = scenariosHtml;
+      }
+
+      // Add event listeners
+      marketSizeSelect.addEventListener("change", updateInputs);
+      demographicSelect.addEventListener("change", updateResults);
+      [
+        "totalUsers",
+        "marketPenetration",
+        "conversionRate",
+        "costPerUser",
+        "basicTier",
+        "premiumTier",
+        "tierSplit",
+      ].forEach((id) => {
+        document.getElementById(id).addEventListener("input", updateResults);
+      });
+
+      // Initial setup
+      updateInputs();
+      updateResults();
+    </script>
+  </body>
+</html>
