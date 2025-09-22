@@ -1,6 +1,6 @@
 # saas-conversion-simulator
 
-Simple, interactive SaaS Conversion Simulator built entirely in a single HTML file. It allows you to model and visualize the financial and user metrics for a SaaS business based on customizable parameters.
+Simple, interactive SaaS Conversion Simulator. It allows you to model and visualize the financial and user metrics for a SaaS business based on customizable parameters.
 
 ## Features
 

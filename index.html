@@ -315,9 +315,14 @@
       class="container max-w-6xl mx-auto bg-card/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl"
     >
       <h1
-        class="text-center text-4xl font-black mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+        class="text-center items-center flex justify-center text-4xl font-black mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
       >
-        🚀 SaaS Conversion Simulator
+        <img
+          src="https://minio.url4irl.com/public-read-url4irl/url4irl-logo.png"
+          alt="SaaS Conversion Simulator Logo"
+          class="inline-block w-12 h-12 mr-2"
+        />
+        SaaS Conversion Simulator
       </h1>
 
       <div
@@ -387,9 +392,8 @@
             id="marketPenetration"
             value="0.1"
             min="0.001"
-            max="10"
+            max="100"
             step="0.001"
-            disabled
             class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground opacity-50"
             data-umami-event="marketPenetration"
           />
@@ -520,12 +524,17 @@
         totalUsersInput.disabled = !isCustom;
         penetrationInput.disabled = isCustom;
         demographicSelect.disabled = isCustom;
-        if (!isCustom) {
+        // Opacity logic for penetrationInput
+        if (isCustom) {
           penetrationInput.classList.add("opacity-50");
+        } else {
+          penetrationInput.classList.remove("opacity-50");
+        }
+        // Opacity logic for totalUsersInput and demographicSelect
+        if (!isCustom) {
           totalUsersInput.classList.add("opacity-50");
           demographicSelect.classList.remove("opacity-50");
         } else {
-          penetrationInput.classList.remove("opacity-50");
           totalUsersInput.classList.remove("opacity-50");
           demographicSelect.classList.add("opacity-50");
         }
@@ -536,7 +545,13 @@
         const selectedMarket = marketSizeSelect.value;
         const selectedDemographic = demographicSelect.value;
         let totalUsers = parseInt(totalUsersInput.value);
-        const marketPenetration = parseFloat(penetrationInput.value) / 100;
+        // Clamp marketPenetration to max 100
+        let penetrationValue = parseFloat(penetrationInput.value);
+        if (penetrationValue > 100) {
+          penetrationValue = 100;
+          penetrationInput.value = 100;
+        }
+        const marketPenetration = penetrationValue / 100;
         const conversionRate =
           parseFloat(document.getElementById("conversionRate").value) / 100;
         const costPerUser = parseFloat(
@@ -600,7 +615,11 @@
         const profit = revenue - totalCosts;
 
         let profitClass =
-          profit > 0 ? "positive" : profit < 0 ? "negative" : "break-even";
+          profit > 0
+            ? "text-green-600"
+            : profit < 0
+            ? "text-red-600"
+            : "break-even";
 
         const resultsHtml = `
                 <div class="result-card bg-card p-6 rounded-2xl shadow-md border-l-4 border-primary hover:-translate-y-1 transition-transform">
