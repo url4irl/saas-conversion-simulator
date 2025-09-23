@@ -409,7 +409,7 @@
             id="conversionRate"
             value="8"
             min="1"
-            max="50"
+            max="100"
             step="0.1"
             class="w-full p-3 border-2 border-border rounded-lg text-base focus:border-primary focus:ring-2 focus:ring-ring/20 outline-none transition-all bg-input text-foreground"
             data-umami-event="conversionRate"
@@ -552,8 +552,14 @@
           penetrationInput.value = 100;
         }
         const marketPenetration = penetrationValue / 100;
-        const conversionRate =
-          parseFloat(document.getElementById("conversionRate").value) / 100;
+        let conversionValue = parseFloat(
+          document.getElementById("conversionRate").value
+        );
+        if (conversionValue > 100) {
+          conversionValue = 100;
+          document.getElementById("conversionRate").value = 100;
+        }
+        const conversionRate = conversionValue / 100;
         const costPerUser = parseFloat(
           document.getElementById("costPerUser").value
         );
@@ -563,8 +569,14 @@
         const premiumTierPrice = parseFloat(
           document.getElementById("premiumTier").value
         );
-        const tierSplit =
-          parseFloat(document.getElementById("tierSplit").value) / 100;
+        let tierSplitValue = parseFloat(
+          document.getElementById("tierSplit").value
+        );
+        if (tierSplitValue > 100) {
+          tierSplitValue = 100;
+          document.getElementById("tierSplit").value = 100;
+        }
+        const tierSplit = tierSplitValue / 100;
 
         let marketSizeDisplay = "Custom";
         let penetrationDisplay = "-";
